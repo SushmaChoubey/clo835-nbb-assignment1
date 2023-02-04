@@ -30,8 +30,8 @@ jobs:
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         ECR_REPOSITORY: clo835-assigmt1-repo
-        IMAGE_TAG: v1.0
+        IMAGE_TAG: my_db_img
       run: |
-        cd application/
+        cd application/Dockerfile_mysql/
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
