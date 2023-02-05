@@ -24,6 +24,7 @@ aws ecr get-login-password --region us-east-1 |sudo docker login -u AWS ${ECR} -
 sudo docker network create schoubey-network
 sudo docker run -d -p 8080:8080 -e MYSQL_ROOT_PASSWORD=${DBPWD} --name mysql-db --network=schoubey-network ${ECR}:${DB_IMG}
 export DBHOST=$(sudo docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' mysql-db)
+echo 'my db host value' $DBHOST
 sudo docker run -d --name blue-container -p 8081:8080 --network=schoubey-network -e APP_COLOR=$APP_COLOR_BLUE -e DBHOST=$DBHOST -e DBPORT=$DBPORT -e  DBUSER=$DBUSER -e DBPWD=$DBPWD ${ECR}:${APP_IMG}
 sudo docker run -d --name pink-container -p 8082:8080 --network=schoubey-network -e APP_COLOR=$APP_COLOR_PINK -e DBHOST=$DBHOST -e DBPORT=$DBPORT -e  DBUSER=$DBUSER -e DBPWD=$DBPWD ${ECR}:${APP_IMG}
 sudo docker run -d --name lime-container -p 8083:8080 --network=schoubey-network -e APP_COLOR=$APP_COLOR_LIME -e DBHOST=$DBHOST -e DBPORT=$DBPORT -e  DBUSER=$DBUSER -e DBPWD=$DBPWD ${ECR}:${APP_IMG}
