@@ -52,7 +52,11 @@ resource "aws_instance" "my_amazon" {
   key_name                    = aws_key_pair.my_key.key_name
   vpc_security_group_ids             = [aws_security_group.my_sg.id]
   associate_public_ip_address = false
-
+  #Added for IAM Role
+  iam_instance_profile = "LabInstanceProfile"
+  
+  user_data                   = file("${path.module}/install_httpd.sh")
+  
   lifecycle {
     create_before_destroy = true
   }
