@@ -62,6 +62,7 @@ lime-container on port 8083
 5. Additionally, on the EC2 instance, if we go under the blue-container using the command.
 ```docker exec -it blue-container /bin/bash```
 
+
 We should be successfully able to ping the other two containers using the command.
 
 ```ping pink-container```
